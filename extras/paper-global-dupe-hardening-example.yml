@@ -1,0 +1,11 @@
+# Merge these values into config/paper-global.yml; do not overwrite your whole file.
+# AegisAC audits these known unsafe duplication/exploit toggles on startup but does not
+# edit Paper config while the server is running. Restart Paper after changing them.
+unsupported-settings:
+  allow-headless-pistons: false
+  allow-permanent-block-break-exploits: false
+  allow-piston-duplication: false
+  allow-unsafe-end-portal-teleportation: false
+  skip-tripwire-hook-placement-validation: false
+  oversized-item-component-sanitizer:
+    dont-sanitize: []

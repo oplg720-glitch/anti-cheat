@@ -1,0 +1,6 @@
+# Optional Paper world-level hardening settings.
+# Merge these keys under the matching section in config/paper-world-defaults.yml
+# and/or each world's paper-world.yml. Do not replace existing settings wholesale.
+fixes:
+  disable-unloaded-chunk-enderpearl-exploit: true
+  split-overstacked-loot: true

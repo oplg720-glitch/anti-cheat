@@ -1,0 +1,21 @@
+name: AegisAC
+version: 1.7.2
+main: dev.aegis.ac.AegisAC
+api-version: '1.21.11'
+author: Aegis Development
+description: Packet-assisted Paper anti-cheat with automatic transaction-level dupe rollback, signed item serials, timed bans and protected bases.
+softdepend: [packetevents]
+commands:
+  aegis:
+    description: AegisAC administration, bans and base protection
+    usage: /aegis <help|reload|fly|info|debug|reset|ban|tempban|pardon|base|dupe>
+    aliases: [aac]
+permissions:
+  aegis.admin:
+    default: op
+  aegis.alerts:
+    default: op
+  aegis.bypass:
+    default: false
+  aegis.base.bypass:
+    default: op

@@ -1,0 +1,43 @@
+AegisAC 1.3.3 - CLIENT AUDIT
+Uploaded file: Meteor-Client-Mod-Fabric-1.21.11.jar
+Fabric metadata: id=meteor-client, version=1.21.11-82, build_number=82, environment=client, Java >=21.
+Nested libraries include Fabric APIs and helper libraries; no Baritone nested jar was found in this archive.
+
+IMPORTANT SERVER LIMITATION
+Paper cannot query a Fabric client's installed module list through ordinary vanilla-compatible login.
+The anti-cheat therefore does not claim to know whether a named module is enabled. It evaluates server-visible packets/events and player behavior.
+Render-only/client UI modules such as ESP, Xray overlay, WallHack, StorageESP, Freecam camera rendering, Fullbright, Zoom, Chams, NoRender, and FreeLook cannot be reliably detected from ordinary Paper events.
+Some modules that affect interaction may only be detectable when they cause impossible reach, movement, placement, attack, or packet patterns.
+
+MODULE INVENTORY FOUND IN THE JAR
+
+[COMBAT] 30 classes/modules
+AnchorAura, AntiAnchor, AntiAnvil, AntiBed, ArrowDodge, AttributeSwap, AutoAnvil, AutoArmor, AutoCity, AutoEXP, AutoLog, AutoTotem, AutoTrap, AutoWeapon, AutoWeb, BedAura, BowAimbot, BowSpam, Burrow, Criticals, CrystalAura, Hitboxes, HoleFiller, KillAura, Offhand, Quiver, SelfAnvil, SelfTrap, SelfWeb, Surround
+
+[MOVEMENT] 41 classes/modules
+AirJump, Anchor, AntiVoid, AutoJump, AutoWalk, AutoWasp, Blink, ClickTP, ElytraBoost, EntityControl, FastClimb, Flight, GUIMove, HighJump, Jesus, LongJump, NoFall, NoSlow, Parkour, ReverseStep, SafeWalk, Scaffold, Slippy, Sneak, Spider, Sprint, Step, TridentBoost, Velocity, elytrafly.ElytraFlightMode, elytrafly.ElytraFlightModes, elytrafly.ElytraFly, elytrafly.modes.Bounce, elytrafly.modes.Packet, elytrafly.modes.Pitch40, elytrafly.modes.Vanilla, speed.Speed, speed.SpeedMode, speed.SpeedModes, speed.modes.Strafe, speed.modes.Vanilla
+
+[PLAYER] 32 classes/modules
+AirPlace, AntiAFK, AntiHunger, AutoClicker, AutoEat, AutoFish, AutoGap, AutoMend, AutoReplenish, AutoRespawn, AutoTool, BreakDelay, ChestSwap, EXPThrower, FakePlayer, FastUse, GhostHand, InstantRebreak, LiquidInteract, MiddleClickExtra, Multitask, NameProtect, NoInteract, NoMiningTrace, NoRotate, NoStatusEffects, OffhandCrash, Portals, PotionSaver, Reach, Rotation, SpeedMine
+
+[WORLD] 25 classes/modules
+Ambience, AutoBreed, AutoBrewer, AutoMount, AutoNametag, AutoShearer, AutoSign, AutoSmelter, BuildHeight, Collisions, EChestFarmer, EndermanLook, Excavator, Flamethrower, HighwayBuilder, InfinityMiner, LiquidFiller, MountBypass, NoGhostBlocks, Nuker, PacketMine, SpawnProofer, StashFinder, Timer, VeinMiner
+
+[MISC] 19 classes/modules
+AntiPacketKick, AutoReconnect, BetterBeacons, BetterChat, BookBot, DiscordPresence, InventoryTweaks, MessageAura, Notebot, Notifier, PacketCanceller, PacketLogger, ServerSpoof, SoundBlocker, Spam, swarm.Swarm, swarm.SwarmConnection, swarm.SwarmHost, swarm.SwarmWorker
+
+[RENDER] 46 classes/modules
+BetterTab, BetterTooltips, BlockSelection, Blur, BossStack, Breadcrumbs, BreakIndicators, CameraTweaks, Chams, CityESP, ESP, EntityOwner, FreeLook, Freecam, Fullbright, HandView, HoleESP, ItemHighlight, ItemPhysics, LightOverlay, LogoutSpots, Nametags, NoRender, PopChams, StorageESP, TimeChanger, Tracers, Trail, Trajectories, TunnelESP, VoidESP, WallHack, WaypointsModule, Xray, Zoom, blockesp.BlockESP, blockesp.ESPBlock, blockesp.ESPBlockData, blockesp.ESPBlockDataScreen, blockesp.ESPChunk, blockesp.ESPGroup, marker.BaseMarker, marker.CuboidMarker, marker.Marker, marker.MarkerFactory, marker.Sphere2dMarker
+
+BEHAVIOR COVERAGE ADDED/RETAINED IN AEGISAC 1.3.3
+Combat: Reach, attack-rate/AutoClicker, NoSwing, suspicious off-angle KillAura patterns, rapid multi-target attacks, explosive-item burst patterns (Crystal/Anchor/Bed aura).
+Movement: Speed, Fly/Hover, Timer, ImpossibleMove, Scaffold, NoSlow heuristic, Jesus/WaterWalk heuristic, Spider heuristic, extreme Elytra movement.
+World/building: FastBreak, FastPlace, Baritone mining/building/farming patterns, large schematic build pattern, Nuker/PacketMine burst pattern, AirPlace/Freecam interaction distance.
+Player automation: AutoFish timing regularity, inventory/offhand automation bursts, BowSpam, chat/interaction patterns where server events expose them.
+Xray: statistical ore-mining ratio heuristic only; this is not proof and can produce false positives.
+
+NOT RELIABLY DETECTABLE BY PAPER EVENT-ONLY CHECKS
+ESP, Xray visual overlay, WallHack, StorageESP, Fullbright, Chams, Freecam display-only use, CameraTweaks, Zoom, NoRender, NameProtect, BetterTab, and client-side cosmetics.
+AutoTotem/AutoArmor/AutoWeapon/AutoEat/AutoGap/AntiKnockback/NoFall and some Criticals modes are only partially observable or overlap with legitimate behavior; AegisAC uses conservative suspicion signals rather than pretending to identify all variants.
+
+No client module is identified by name or fingerprint. Only observable behavior is assessed. Low-confidence Meteor automation heuristics do not auto-ban by default.

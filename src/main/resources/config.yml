@@ -1,0 +1,200 @@
+general:
+  alerts: true
+  log-to-console: true
+  setback: true
+  # Automatic punishment only considers high-confidence movement/combat checks by default.
+  auto-ban: false
+  max-high-confidence-vl-before-ban: 22.0
+  violation-decay-per-second: 0.20
+  ban-command: ""
+  auto-ban-duration: "7d"
+
+checks:
+  movement:
+    enabled: true
+    max-horizontal-distance-per-tick: 1.28
+    speed-potion-extra-per-level: 0.16
+  fly:
+    enabled: true
+    max-air-ticks: 38
+    hover-velocity-epsilon: 0.012
+  timer:
+    enabled: true
+    max-position-moves-per-tick: 28
+    suspicious-ticks-required: 5
+  reach:
+    enabled: true
+    max-reach: 3.20
+  autoclicker:
+    enabled: true
+    high-cps-threshold: 18
+    min-attack-samples: 10
+    regularity-cv-threshold: 0.075
+  noswing:
+    enabled: true
+    min-attacks: 10
+    minimum-swing-ratio: 0.25
+  fastbreak:
+    enabled: true
+    # Uses Paper's server-calculated block progress and only reports repeated unusually early breaks.
+    minimum-expected-ticks: 4.0
+    minimum-observed-to-expected-ratio: 0.62
+    minimum-suspect-breaks: 3
+    sample-window-seconds: 12
+  scaffold:
+    enabled: true
+    minimum-underfoot-placements: 5
+    window-seconds: 4
+    minimum-horizontal-travel: 3.5
+    minimum-path-linearity: 0.55
+  fastplace:
+    enabled: true
+    minimum-placements: 12
+    window-seconds: 5
+  baritone-mining:
+    enabled: true
+    min-break-samples: 10
+    max-window-seconds: 18
+    timing-cv-threshold: 0.24
+    linearity-threshold: 0.82
+  baritone-builder:
+    enabled: true
+    min-place-samples: 12
+    max-window-seconds: 8
+    timing-cv-threshold: 0.22
+  baritone-farm:
+    enabled: true
+    min-harvest-replant-cycles: 6
+    window-seconds: 35
+  baritone-large-schematic:
+    enabled: true
+    window-seconds: 30
+    minimum-block-placements: 48
+    minimum-axis-span: 5
+    minimum-longest-span: 12
+    minimum-spatial-cells: 5
+    minimum-placements-per-second: 1.8
+    maximum-timing-cv: 0.55
+    alert-cooldown-seconds: 20
+    suspicion-points: 3.0
+  impossible-move:
+    enabled: true
+    max-vertical-step: 2.4
+
+baritone:
+  # Baritone behavior can look like legitimate play. Keep automatic bans disabled
+  # for these heuristics unless your server rules explicitly prohibit automation.
+  auto-ban: false
+  auto-ban-suspicion-score: 20.0
+  suspicion-decay-per-second: 0.10
+  alert-on-suspicion: true
+
+messages:
+  prefix: "&8[&bAegisAC&8] "
+  alert: "&c%player% &7failed &e%check% &7(&f%vl%&7) &8[&f%detail%&8]"
+  baritone-alert: "&6%player% &7automation pattern: &e%check% &8[&f%detail%&8]"
+  banned: "&c%player% &7was banned. &8Reason: &f%reason%"
+  suspicion-alert: "&6%player% &7suspicious behavior: &e%check% &8[&f%detail%&8]"
+
+# Meteor Client behavior signals. These are heuristics, not client fingerprints.
+# Low-confidence automation/render heuristics never auto-ban.
+meteor:
+  alert-cooldown-seconds: 12
+  killaura:
+    enabled: true
+    max-look-angle-degrees: 95.0
+    required-off-angle-attacks: 4
+    max-distinct-targets-in-window: 5
+  nofall:
+    enabled: true
+    minimum-fall-distance: 8.0
+  noslow:
+    enabled: true
+    horizontal-move-threshold: 0.31
+    required-samples: 5
+  jesus:
+    enabled: true
+    required-samples: 4
+  spider:
+    enabled: true
+    required-samples: 4
+  elytra:
+    enabled: true
+    max-distance-per-move-event: 6.5
+  airplace:
+    enabled: true
+    max-interaction-distance: 5.25
+  fastplace:
+    enabled: true
+    placements-per-2s: 28
+  explosive-aura:
+    enabled: true
+    interactions-per-window: 12
+  bow-spam:
+    enabled: true
+    projectiles-per-3s: 8
+  autofish:
+    enabled: true
+    minimum-catches: 7
+    interval-cv: 0.08
+  nuker:
+    enabled: true
+    breaks-per-5s: 45
+    unique-blocks-per-5s: 35
+  reach-break:
+    enabled: true
+    max-distance: 6.2
+  xray:
+    enabled: true
+    minimum-blocks: 30
+    minimum-ores: 12
+    ore-ratio-threshold: 0.35
+  inventory-automation:
+    enabled: true
+    clicks-per-2s: 55
+    swaps-per-2-5s: 12
+
+bases:
+  # /aegis base create <name> <world> <x> <y> <z> [radius]
+  default-radius: 16
+  maximum-radius: 128
+  maximum-volume: 2000000
+
+moderation:
+  # Plugin-managed bans persist in bans.yml and are checked on login.
+  # Durations accept combinations such as 1d12h30m. "perm" is permanent.
+  timed-bans: true
+
+
+# Optional packet-level heuristics. Requires PacketEvents 2.14.0+ in /plugins.
+# Thresholds are deliberately high and require consecutive abnormal windows.
+packets:
+  # PacketEvents 2.14+ understands protocol changes across legacy and modern client builds.
+  # These are anomaly alerts, not proof of cheating and never auto-ban by themselves.
+  movement-per-second: 28
+  entity-interactions-per-second: 48
+  attacks-per-second: 24
+  inventory-per-second: 90
+  digging-per-second: 72
+  use-per-second: 100
+  total-per-second: 250
+  consecutive-windows: 3
+  alert-cooldown-seconds: 15
+
+# Automatic anti-duplication. No administrator scan command is required.
+# Conservation rollback applies only to observed, isolated item-transfer events;
+# ambiguous overlapping transactions are logged/skipped to avoid overwriting legitimate inventory changes.
+# Non-stackable items receive signed serials; stackable items are checked by quantity conservation.
+dupe:
+  enabled: true
+  # Fully automatic: event-driven transaction audits plus continuous loaded-chunk scans.
+  # dupe.enabled controls this background protection; no staff command is required.
+  auto-rollback-stackable-transfers: true
+  auto-quarantine-confirmed-copies: true
+  duplicate-confirmation-rounds: 2
+  transaction-scan-delay-ticks: 1
+  neighborhood-scan-radius: 24.0
+  full-scan-interval-seconds: 10
+  chunk-scan-budget-per-tick: 6
+  pickup-burst-warning-threshold: 512
+  inventory-click-warning-per-second: 85

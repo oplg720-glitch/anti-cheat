@@ -1,0 +1,12 @@
+Uploaded client archive: baritone-meteor-1.21.11.jar
+
+Jar metadata and package scan:
+- Mod ID: baritone-meteor
+- Display name: Baritone
+- Version: 1.21.11-SNAPSHOT
+- Fabric loader metadata is present
+- Baritone API and processes include mining, building, farming, exploring, following, schematics, pathing and Elytra pathfinding
+- The uploaded jar did not show the normal Meteor Client combat module package set; do not assume it contains Meteor KillAura modules
+
+Server-side limitation:
+The server cannot identify the installed client mod with certainty. It can only score observable behavior. A legitimate player may create the same movement, mining, placement, or farming patterns.
